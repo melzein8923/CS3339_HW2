@@ -11,7 +11,6 @@ bitset<32> getBits(float value) {
 void printFloatBits(bitset<32> bits) {
     string s = bits.to_string();
 
-    // Split into parts
     string sign = s.substr(0, 1);
     string exponent = s.substr(1, 8);
     string fraction = s.substr(9, 23);
@@ -19,19 +18,16 @@ void printFloatBits(bitset<32> bits) {
     cout << sign << " " << exponent << " " << fraction;
 }
 
-// Extract exponent
 int getExponent(bitset<32> bits) {
     unsigned int raw = bits.to_ulong();
     return ((raw >> 23) & 0xFF) - 127;
 }
 
-// Compute ULP
 float computeULP(float value) {
     int e = getExponent(getBits(value));
     return pow(2.0f, e - 23);
 }
 
-// Find overflow threshold
 float findThreshold(float increment) {
     float x = increment;
 
